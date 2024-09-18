@@ -124,7 +124,6 @@ Text to humanize:""",
 5. Keeping the tone casual and fun.
 
 Text to humanize:""",
-    # New Strategies Added Below
     "Approach 6 - Empathetic Language": """To humanize the text:
 
 1. Show understanding and empathy towards the reader's feelings.
@@ -170,6 +169,52 @@ Text to humanize:""",
 5. Making the content immersive and experiential.
 
 Text to humanize:""",
+    # New Strategies Added Below
+    "Approach 11 - Analogies and Metaphors": """Make complex ideas more relatable by:
+
+1. Using creative analogies to compare unfamiliar concepts to familiar ones.
+2. Incorporating metaphors to illustrate points vividly.
+3. Simplifying technical terms through relatable comparisons.
+4. Helping the reader visualize abstract ideas.
+5. Engaging the reader's imagination with symbolic language.
+
+Text to humanize:""",
+    "Approach 12 - Dialogue and Direct Address": """Engage the reader by:
+
+1. Addressing the reader directly using "you" to create a personal connection.
+2. Asking rhetorical or direct questions to involve the reader.
+3. Including hypothetical conversations or dialogues.
+4. Encouraging reader reflection on personal experiences.
+5. Using friendly commands or invitations to imagine scenarios.
+
+Text to humanize:""",
+    "Approach 13 - Reflective and Philosophical Tone": """Encourage deeper thinking by:
+
+1. Asking thought-provoking questions.
+2. Sharing personal reflections or lessons learned.
+3. Discussing universal themes like happiness, purpose, or identity.
+4. Prompting mindfulness and presence.
+5. Using metaphorical language to explore ideas.
+
+Text to humanize:""",
+    "Approach 14 - Collaborative Language": """Foster a sense of collaboration by:
+
+1. Using inclusive pronouns like "we" and "us" to build camaraderie.
+2. Inviting the reader to share thoughts or experiences.
+3. Highlighting shared goals or challenges.
+4. Creating a team atmosphere in the discussion.
+5. Acknowledging reader contributions or common knowledge.
+
+Text to humanize:""",
+    "Approach 15 - Visual Language": """Enhance imagery by:
+
+1. Using vivid descriptions to engage the senses.
+2. Employing symbolism to represent ideas.
+3. Creating mental images to help the reader visualize concepts.
+4. Using descriptive analogies for complex ideas.
+5. Incorporating color and texture descriptions for depth.
+
+Text to humanize:""",
 }
 
 approach_list = list(prompt_options.keys())
@@ -195,13 +240,13 @@ if st.button("Humanize Text"):
                 st.markdown(f"### {selected_option1}")
                 st.write(humanized_text1)
                 st.code(humanized_text1)
-                st.text_area("Export Text", value=humanized_text1, height=200)
+                st.text_area("Export Text", value=humanized_text1, height=400)
 
             with col2:
                 st.markdown(f"### {selected_option2}")
                 st.write(humanized_text2)
                 st.code(humanized_text2)
-                st.text_area("Export Text", value=humanized_text2, height=200)
+                st.text_area("Export Text", value=humanized_text2, height=400)
         else:
             st.error("Failed to humanize the text. Please try again.")
 
