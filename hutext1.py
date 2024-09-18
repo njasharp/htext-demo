@@ -78,16 +78,16 @@ temperature = st.session_state["temperature"]
 # Select two humanization approaches
 st.sidebar.header("Select Two Humanization Strategies:")
 prompt_options = {
-    "Approach 1 - Conversational Tone": """To humanize the prompt for a text-generative AI, you can make it more conversational and engaging. Here's how:
-
-1. Start with a friendly greeting or introduction.
-2. Use informal language and contractions.
-3. Incorporate personal anecdotes or thoughts.
-4. Ask open-ended questions to engage the reader.
-5. Use emotive language to express feelings.
+    "Approach 1 - Conversational Tone": """To humanize the text, make it more conversational and engaging by:
+    
+1. Starting with a friendly greeting or introduction.
+2. Using informal language and contractions.
+3. Incorporating personal anecdotes or thoughts.
+4. Asking open-ended questions to engage the reader.
+5. Using emotive language to express feelings.
 
 Text to humanize:""",
-    "Approach 2 - Vary Sentence Structure": """To make the following text sound more natural and human-like:
+    "Approach 2 - Vary Sentence Structure": """To make the text sound more natural and human-like:
 
 1. Vary sentence length and structure.
 2. Use contractions.
@@ -122,6 +122,52 @@ Text to humanize:""",
 3. Incorporating light-hearted sarcasm.
 4. Including relatable anecdotes.
 5. Keeping the tone casual and fun.
+
+Text to humanize:""",
+    # New Strategies Added Below
+    "Approach 6 - Empathetic Language": """To humanize the text:
+
+1. Show understanding and empathy towards the reader's feelings.
+2. Acknowledge their challenges and emotions.
+3. Use phrases that convey compassion.
+4. Build trust through sincere communication.
+5. Encourage and support the reader.
+
+Text to humanize:""",
+    "Approach 7 - User-Generated Content": """Enhance authenticity by:
+
+1. Including testimonials or quotes from real users.
+2. Sharing stories or experiences from customers.
+3. Referencing community contributions.
+4. Highlighting feedback or reviews.
+5. Building content around user interactions.
+
+Text to humanize:""",
+    "Approach 8 - Cultural References": """Make the text relatable by:
+
+1. Including references to popular culture or current events.
+2. Using idioms or sayings familiar to the audience.
+3. Reflecting shared experiences or traditions.
+4. Tailoring content to cultural contexts.
+5. Avoiding stereotypes and being inclusive.
+
+Text to humanize:""",
+    "Approach 9 - Active Listening": """Show the reader you understand them by:
+
+1. Reflecting their potential thoughts and concerns.
+2. Asking questions that resonate with their experiences.
+3. Paraphrasing common feelings or dilemmas.
+4. Validating their perspective.
+5. Offering solutions that address their needs.
+
+Text to humanize:""",
+    "Approach 10 - Show, Don't Tell": """Enhance engagement by:
+
+1. Illustrating points with descriptive scenes.
+2. Using vivid imagery to convey messages.
+3. Allowing readers to draw their own conclusions.
+4. Demonstrating concepts through examples.
+5. Making the content immersive and experiential.
 
 Text to humanize:""",
 }
