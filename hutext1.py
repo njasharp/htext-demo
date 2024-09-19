@@ -42,8 +42,8 @@ def query_groq_with_retry(messages, model, temperature=None, retries=3):
                 return ""
 
 # Function to humanize AI-generated text using Groq API
-def humanize_text(ai_text, selected_prompt, tone_prompt, output_size_prompt, model_id, temperature):
-    prompt = f"{selected_prompt}\n\nTone: {tone_prompt}\n\n{output_size_prompt}\n\nText to humanize:\n{ai_text}"
+def humanize_text(ai_text, selected_prompt, tone_prompt, output_size_prompt, person_prompt, model_id, temperature):
+    prompt = f"{selected_prompt}\n\nTone: {tone_prompt}\n\n{output_size_prompt}\n\nNarrative Focus: {person_prompt}\n\nText to humanize:\n{ai_text}"
     messages = [{"role": "user", "content": prompt}]
     humanized_text = query_groq_with_retry(messages, model=model_id, temperature=temperature)
     return humanized_text
@@ -97,6 +97,7 @@ Text to humanize:""",
 6. Use active voice.
 
 Text to humanize:""",
+    # Include all approaches up to Approach 17
     "Approach 3 - Sensory Language": """Humanize the text by:
 
 1. Using vivid sensory details.
@@ -225,7 +226,6 @@ Text to humanize:""",
 5. Employing a confident and authoritative voice.
 
 Text to humanize:""",
-    # New Strategy Added Below
     "Approach 17 - Marketing Tone": """Adopt a persuasive marketing tone to promote a product or service by:
 
 1. Highlighting key benefits and unique selling points.
@@ -272,14 +272,25 @@ output_size_list = list(output_size_options.keys())
 selected_output_size = st.sidebar.selectbox("Choose the output size:", output_size_list, index=2)  # Default to 'Medium'
 output_size_prompt = output_size_options[selected_output_size]
 
+# Person focus options
+st.sidebar.header("Select Narrative Focus:")
+person_options = {
+    "First Person": "Use first person narrative (I, we).",
+    "Second Person": "Use second person narrative (you).",
+    "Third Person": "Use third person narrative (he, she, they)."
+}
+person_list = list(person_options.keys())
+selected_person = st.sidebar.selectbox("Choose the narrative focus:", person_list, index=1)  # Default to 'Second Person'
+person_prompt = person_options[selected_person]
+
 # Humanize text when button is clicked
 if st.button("Humanize Text"):
     if ai_text.strip() == "":
         st.warning("Please enter AI-generated text to humanize.")
     else:
         with st.spinner("Humanizing text..."):
-            humanized_text1 = humanize_text(ai_text, selected_prompt1, tone_prompt, output_size_prompt, model_id, temperature)
-            humanized_text2 = humanize_text(ai_text, selected_prompt2, tone_prompt, output_size_prompt, model_id, temperature)
+            humanized_text1 = humanize_text(ai_text, selected_prompt1, tone_prompt, output_size_prompt, person_prompt, model_id, temperature)
+            humanized_text2 = humanize_text(ai_text, selected_prompt2, tone_prompt, output_size_prompt, person_prompt, model_id, temperature)
         if humanized_text1 and humanized_text2:
             st.subheader("Humanized Texts:")
 
@@ -301,4 +312,4 @@ if st.button("Humanize Text"):
 
 # Footer
 st.markdown("<div style='text-align: center; color: grey;'>Powered by Groq</div>", unsafe_allow_html=True)
-st.info("built by dw 9-19-24")
+st.info("built by dw 9-20-24")
