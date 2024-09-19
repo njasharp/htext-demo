@@ -42,8 +42,8 @@ def query_groq_with_retry(messages, model, temperature=None, retries=3):
                 return ""
 
 # Function to humanize AI-generated text using Groq API
-def humanize_text(ai_text, selected_prompt, tone_prompt, model_id, temperature):
-    prompt = f"{selected_prompt}\n\nTone: {tone_prompt}\n\nText to humanize:\n{ai_text}"
+def humanize_text(ai_text, selected_prompt, tone_prompt, output_size_prompt, model_id, temperature):
+    prompt = f"{selected_prompt}\n\nTone: {tone_prompt}\n\n{output_size_prompt}\n\nText to humanize:\n{ai_text}"
     messages = [{"role": "user", "content": prompt}]
     humanized_text = query_groq_with_retry(messages, model=model_id, temperature=temperature)
     return humanized_text
@@ -95,6 +95,7 @@ Text to humanize:""",
 4. Incorporate colloquialisms.
 5. Include rhetorical questions.
 6. Use active voice.
+
 Text to humanize:""",
     "Approach 3 - Sensory Language": """Humanize the text by:
 
@@ -214,7 +215,7 @@ Text to humanize:""",
 5. Incorporating color and texture descriptions for depth.
 
 Text to humanize:""",
-    # New Strategy Added Below
+    # ... Include approaches 3 to 15 ...
     "Approach 16 - Professional Business Tone": """Adopt a formal and professional tone suitable for business contexts by:
 
 1. Using industry-specific terminology where appropriate.
@@ -222,6 +223,16 @@ Text to humanize:""",
 3. Avoiding slang or overly casual language.
 4. Focusing on facts and data to support statements.
 5. Employing a confident and authoritative voice.
+
+Text to humanize:""",
+    # New Strategy Added Below
+    "Approach 17 - Marketing Tone": """Adopt a persuasive marketing tone to promote a product or service by:
+
+1. Highlighting key benefits and unique selling points.
+2. Using persuasive and emotive language to appeal to the reader.
+3. Including a clear call to action.
+4. Building trust through social proof or testimonials.
+5. Addressing potential objections or concerns.
 
 Text to humanize:""",
 }
@@ -248,14 +259,27 @@ tone_list = list(tone_options.keys())
 selected_tone = st.sidebar.selectbox("Choose the tone level:", tone_list, index=3)  # Default to 'Higher education'
 tone_prompt = tone_options[selected_tone]
 
+# Output size options
+st.sidebar.header("Select Output Size:")
+output_size_options = {
+    "Extra Small": "Please limit the output to 2-3 sentences.",
+    "Small": "Please limit the output to 4-6 sentences.",
+    "Medium": "Please aim for around 250 words.",
+    "Large": "Please aim for around 500 words.",
+    "Extra Large": "Please aim for 800 words or more."
+}
+output_size_list = list(output_size_options.keys())
+selected_output_size = st.sidebar.selectbox("Choose the output size:", output_size_list, index=2)  # Default to 'Medium'
+output_size_prompt = output_size_options[selected_output_size]
+
 # Humanize text when button is clicked
 if st.button("Humanize Text"):
     if ai_text.strip() == "":
         st.warning("Please enter AI-generated text to humanize.")
     else:
         with st.spinner("Humanizing text..."):
-            humanized_text1 = humanize_text(ai_text, selected_prompt1, tone_prompt, model_id, temperature)
-            humanized_text2 = humanize_text(ai_text, selected_prompt2, tone_prompt, model_id, temperature)
+            humanized_text1 = humanize_text(ai_text, selected_prompt1, tone_prompt, output_size_prompt, model_id, temperature)
+            humanized_text2 = humanize_text(ai_text, selected_prompt2, tone_prompt, output_size_prompt, model_id, temperature)
         if humanized_text1 and humanized_text2:
             st.subheader("Humanized Texts:")
 
