@@ -84,7 +84,7 @@ temperature = st.session_state["temperature"]
 # Select two humanization approaches
 st.sidebar.header("Select Two Humanization Strategies:")
 prompt_options = {
-    "Approach 1 - Conversational Tone": """To humanize the text, make it more conversational and engaging by:
+    "Approach 1 - Conversational focus": """To humanize the text, make it more conversational and engaging by:
 
 1. Starting with a friendly greeting or introduction.
 2. Using informal language and contractions.
