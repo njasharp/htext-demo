@@ -43,7 +43,13 @@ def query_groq_with_retry(messages, model, temperature=None, retries=3):
 
 # Function to humanize AI-generated text using Groq API
 def humanize_text(ai_text, selected_prompt, tone_prompt, output_size_prompt, person_prompt, model_id, temperature):
-    prompt = f"{selected_prompt}\n\nTone: {tone_prompt}\n\n{output_size_prompt}\n\nNarrative Focus: {person_prompt}\n\nText to humanize:\n{ai_text}"
+    prompt = (
+        f"{selected_prompt}\n\n"
+        f"Tone: {tone_prompt}\n\n"
+        f"{output_size_prompt}\n\n"
+        f"Narrative Focus: {person_prompt}\n\n"
+        f"Text to humanize:\n{ai_text}"
+    )
     messages = [{"role": "user", "content": prompt}]
     humanized_text = query_groq_with_retry(messages, model=model_id, temperature=temperature)
     return humanized_text
@@ -97,7 +103,6 @@ Text to humanize:""",
 6. Use active voice.
 
 Text to humanize:""",
-    # Include all approaches up to Approach 17
     "Approach 3 - Sensory Language": """Humanize the text by:
 
 1. Using vivid sensory details.
@@ -170,7 +175,6 @@ Text to humanize:""",
 5. Making the content immersive and experiential.
 
 Text to humanize:""",
-    # New Strategies Added Below
     "Approach 11 - Analogies and Metaphors": """Make complex ideas more relatable by:
 
 1. Using creative analogies to compare unfamiliar concepts to familiar ones.
@@ -205,8 +209,8 @@ Text to humanize:""",
 3. Highlighting shared goals or challenges.
 4. Creating a team atmosphere in the discussion.
 5. Acknowledging reader contributions or common knowledge.
+
 Text to humanize:""",
-    # ... (Approaches 3 to 15 are included here) ...
     "Approach 15 - Visual Language": """Enhance imagery by:
 
 1. Using vivid descriptions to engage the senses.
@@ -216,7 +220,6 @@ Text to humanize:""",
 5. Incorporating color and texture descriptions for depth.
 
 Text to humanize:""",
-    # ... Include approaches 3 to 15 ...
     "Approach 16 - Professional Business Tone": """Adopt a formal and professional tone suitable for business contexts by:
 
 1. Using industry-specific terminology where appropriate.
@@ -277,7 +280,8 @@ st.sidebar.header("Select Narrative Focus:")
 person_options = {
     "First Person": "Use first person narrative (I, we).",
     "Second Person": "Use second person narrative (you).",
-    "Third Person": "Use third person narrative (he, she, they)."
+    "Third Person": "Use third person narrative (he, she, they).",
+    "A Person": "Use a person narrative (a person, someone, anyone)."
 }
 person_list = list(person_options.keys())
 selected_person = st.sidebar.selectbox("Choose the narrative focus:", person_list, index=1)  # Default to 'Second Person'
@@ -289,8 +293,24 @@ if st.button("Humanize Text"):
         st.warning("Please enter AI-generated text to humanize.")
     else:
         with st.spinner("Humanizing text..."):
-            humanized_text1 = humanize_text(ai_text, selected_prompt1, tone_prompt, output_size_prompt, person_prompt, model_id, temperature)
-            humanized_text2 = humanize_text(ai_text, selected_prompt2, tone_prompt, output_size_prompt, person_prompt, model_id, temperature)
+            humanized_text1 = humanize_text(
+                ai_text,
+                selected_prompt1,
+                tone_prompt,
+                output_size_prompt,
+                person_prompt,
+                model_id,
+                temperature
+            )
+            humanized_text2 = humanize_text(
+                ai_text,
+                selected_prompt2,
+                tone_prompt,
+                output_size_prompt,
+                person_prompt,
+                model_id,
+                temperature
+            )
         if humanized_text1 and humanized_text2:
             st.subheader("Humanized Texts:")
 
