@@ -84,7 +84,7 @@ temperature = st.session_state["temperature"]
 # Select two humanization approaches
 st.sidebar.header("Select Two Humanization Strategies:")
 prompt_options = {
-    "Approach 1 - Conversational focus": """To humanize the text, make it more conversational and engaging by:
+    "Approach 1 - Conversational Tone": """To humanize the text, make it more conversational and engaging by:
 
 1. Starting with a friendly greeting or introduction.
 2. Using informal language and contractions.
@@ -246,20 +246,28 @@ selected_option2 = st.sidebar.selectbox("Choose second approach:", approach_list
 selected_prompt1 = prompt_options[selected_option1]
 selected_prompt2 = prompt_options[selected_option2]
 
-# Tone options
+# Tone options converted to include both writing styles and grade levels
 st.sidebar.header("Select Tone:")
 tone_options = {
-    "Casual": "Just starting out in before primary school.",
-    "Primary school": "Just starting out in primary school, learning the basics.",
-    "Secondary school": "Moving up to secondary school, getting into more complex subjects.",
-    "Higher education": "Higher education, diving deep into specialized fields.",
-    "PhD level": "PhD level, becoming an expert in your chosen area.",
-    "Business junior": "Starting your business journey as a junior, learning the ropes.",
-    "Business senior": "Senior in the business world, taking on more responsibilities.",
-    "Executive": "Executive level, leading and making big decisions."
+    "Casual": "Use a relaxed and informal tone.",
+    "Semi Formal": "Use a moderately formal tone.",
+    "Formal": "Use a professional and formal tone.",
+    "Friendly": "Use a warm and friendly tone.",
+    "Not Happy": "Use a negative or dissatisfied tone.",
+    "Grade 4": "Use language appropriate for fourth-grade students.",
+    "Grade 5": "Use language appropriate for fifth-grade students.",
+    "Grade 6": "Use language suitable for sixth-grade students.",
+    "Grade 7": "Use language suitable for seventh-grade students.",
+    "Grade 8": "Use language suitable for eighth-grade students.",
+    "Grade 9": "Use language suitable for ninth-grade students.",
+    "Grade 10": "Use language suitable for tenth-grade students.",
+    "Grade 11": "Use language suitable for eleventh-grade students.",
+    "Grade 12": "Use language suitable for twelfth-grade students, tackling complex subjects.",
+    "College": "Use language suitable for college students, diving deep into specialized fields.",
+    "PhD": "Use language suitable for PhD-level students, becoming experts in their chosen area."
 }
 tone_list = list(tone_options.keys())
-selected_tone = st.sidebar.selectbox("Choose the tone level:", tone_list, index=3)  # Default to 'Higher education'
+selected_tone = st.sidebar.selectbox("Choose the tone level:", tone_list, index=0)  # Default to 'Casual'
 tone_prompt = tone_options[selected_tone]
 
 # Output size options
@@ -290,7 +298,7 @@ person_prompt = person_options[selected_person]
 # Humanize text when button is clicked
 if st.button("Humanize Text"):
     if ai_text.strip() == "":
-        st.warning("Please enter text to humanize.")
+        st.warning("Please enter AI-generated text to humanize.")
     else:
         with st.spinner("Humanizing text..."):
             humanized_text1 = humanize_text(
@@ -311,24 +319,24 @@ if st.button("Humanize Text"):
                 model_id,
                 temperature
             )
-        if humanized_text1 and humanized_text2:
-            st.subheader("Humanized Texts:")
+    if humanized_text1 and humanized_text2:
+        st.subheader("Humanized Texts:")
 
-            col1, col2 = st.columns(2)
+        col1, col2 = st.columns(2)
 
-            with col1:
-                st.markdown(f"### {selected_option1}")
-                st.write(humanized_text1)
-                st.code(humanized_text1)
-                st.text_area("Export Text", value=humanized_text1, height=400)
+        with col1:
+            st.markdown(f"### {selected_option1}")
+            st.write(humanized_text1)
+            st.code(humanized_text1)
+            st.text_area("Export Text", value=humanized_text1, height=400)
 
-            with col2:
-                st.markdown(f"### {selected_option2}")
-                st.write(humanized_text2)
-                st.code(humanized_text2)
-                st.text_area("Export Text", value=humanized_text2, height=400)
-        else:
-            st.error("Failed to humanize the text. Please try again.")
+        with col2:
+            st.markdown(f"### {selected_option2}")
+            st.write(humanized_text2)
+            st.code(humanized_text2)
+            st.text_area("Export Text", value=humanized_text2, height=400)
+    else:
+        st.error("Failed to humanize the text. Please try again.")
 
 # Footer
 st.markdown("<div style='text-align: center; color: grey;'>Powered by Groq</div>", unsafe_allow_html=True)
