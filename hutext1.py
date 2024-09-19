@@ -220,7 +220,7 @@ Text to humanize:""",
 5. Incorporating color and texture descriptions for depth.
 
 Text to humanize:""",
-    "Approach 16 - Professional Business Tone": """Adopt a formal and professional tone suitable for business contexts by:
+    "Approach 16 - Professional Business focus": """Adopt a formal and professional tone suitable for business contexts by:
 
 1. Using industry-specific terminology where appropriate.
 2. Maintaining a clear and concise writing style.
@@ -229,7 +229,7 @@ Text to humanize:""",
 5. Employing a confident and authoritative voice.
 
 Text to humanize:""",
-    "Approach 17 - Marketing Tone": """Adopt a persuasive marketing tone to promote a product or service by:
+    "Approach 17 - Marketing focus": """Adopt a persuasive marketing tone to promote a product or service by:
 
 1. Highlighting key benefits and unique selling points.
 2. Using persuasive and emotive language to appeal to the reader.
@@ -290,7 +290,7 @@ person_prompt = person_options[selected_person]
 # Humanize text when button is clicked
 if st.button("Humanize Text"):
     if ai_text.strip() == "":
-        st.warning("Please enter AI-generated text to humanize.")
+        st.warning("Please enter text to humanize.")
     else:
         with st.spinner("Humanizing text..."):
             humanized_text1 = humanize_text(
